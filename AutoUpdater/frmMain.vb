@@ -5,8 +5,8 @@ Imports System.Security.Cryptography
 Imports System.Text.RegularExpressions
 
 Public Class frmMain
-    Dim gameServerIP = "127.0.0.1"
-    Dim baseURL As String = "http://127.0.0.1/updater/" 'Where the files are saved
+    Dim gameServerIP = "" 'Add here
+    Dim baseURL As String = "" 'Add here
     Dim versionFileURL As String = baseURL + "version.txt"
     Dim fileListURL As String = baseURL + "filelist.txt"
     Dim downloadFolderName As String = "$Patch$"
@@ -14,7 +14,7 @@ Public Class frmMain
     Dim pakExtension As String = ".zip"
     Dim enableBrowser As Boolean = True
     Dim enableBrowserScrollbars As Boolean = False
-    Dim browserURL As String = "http://127.0.0.1/news/"
+    Dim browserURL As String = "" 'Add here (optional)
     Dim launcherLocalVersion As Integer = 0
     Dim launcherWebVersion As Integer = 0
     Dim myStartupPath As String
@@ -47,16 +47,8 @@ Public Class frmMain
             End
         End If
 
-        'Check if we have access over http
-        If enableBrowser And checkAddress(browserURL) Then
-            MyWebBrowser.ScrollBarsEnabled = enableBrowserScrollbars
-            MyWebBrowser.Visible = True
-            MyWebBrowser.Navigate(New Uri(browserURL))
-        End If
-        If Not checkAddress(versionFileURL) Then
-            picRepair.Enabled = False
-            Exit Sub 'offline mode
-        End If
+        'picRepair.Enabled = False
+        'Exit Sub 'offline mode
 
         'Get launcher local version
         If File.Exists("version.ini") Then
@@ -315,7 +307,7 @@ Public Class frmMain
     Private Sub picStart_Click(sender As Object, e As EventArgs) Handles picStart.Click
         If updating Then Exit Sub
         Try
-            Shell("system\l2.bin IP=" + gameServerIP, vbNormalFocus)
+            Shell("system_en\l2.exe", vbNormalFocus)
         Catch ex As Exception
             MsgBox("L2.bin not found! Try checking your files.", MsgBoxStyle.Critical, "Auto Updater")
             Exit Sub
